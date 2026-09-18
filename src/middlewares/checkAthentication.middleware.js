@@ -1,5 +1,5 @@
-import { customError } from "../utils/errorHandler.util";
-import { checkJwtToken } from "../utils/jwtHelper.util";
+import { customError } from "../utils/errorHandler.util.js";
+import { checkJwtToken } from "../utils/jwtHelper.util.js";
 
 const checkAthentication = (req, res, next) => {
   let token = req.headers.authorization;

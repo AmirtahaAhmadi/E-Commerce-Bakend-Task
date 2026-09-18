@@ -1,4 +1,4 @@
-import { customError } from "../utils/errorHandler.util";
+import { customError } from "../utils/errorHandler.util.js";
 
 const checkAuthorization = (req, res, next, role) => {
   const user = req.user;

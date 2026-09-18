@@ -13,7 +13,6 @@ const login = async (req, res) => {
       email: email,
     },
   });
-  // const checkPass = await comparePassword(password, data.password);
   if (!data) {
     return customError(
       "There is no account with this email! Please Sign up first",
