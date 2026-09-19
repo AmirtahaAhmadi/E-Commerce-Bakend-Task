@@ -1,0 +1,52 @@
+import validator from "express-validator";
+
+const getCategoryByIdValidation = [
+  validator
+    .param("id")
+    .notEmpty()
+    .withMessage("Please enter category id!")
+    .isString()
+    .withMessage("Id is not valid!"),
+];
+
+const createCategoryValidation = [
+  validator
+    .body("name")
+    .notEmpty()
+    .withMessage("Please enter category name!")
+    .isString()
+    .isLength({ min: 3, max: 30 })
+    .withMessage("Category name is not valid!"),
+];
+
+const updateCategoryValidation = [
+  validator
+    .param("id")
+    .notEmpty()
+    .withMessage("Please enter category id!")
+    .isString()
+    .withMessage("Id is not valid!"),
+  validator
+    .body("name")
+    .notEmpty()
+    .withMessage("Please enter category name!")
+    .isString()
+    .isLength({ min: 3, max: 30 })
+    .withMessage("Category name is not valid!"),
+];
+
+const deleteCategoryByIdValidation = [
+  validator
+    .param("id")
+    .notEmpty()
+    .withMessage("Please enter category id!")
+    .isString()
+    .withMessage("Id is not valid!"),
+];
+
+export {
+  getCategoryByIdValidation,
+  createCategoryValidation,
+  updateCategoryValidation,
+  deleteCategoryByIdValidation,
+};

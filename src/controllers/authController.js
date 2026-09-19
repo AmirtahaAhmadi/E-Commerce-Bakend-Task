@@ -21,7 +21,7 @@ const login = async (req, res) => {
   } else {
     const checkPass = await comparePassword(password, data.password);
     if (!checkPass) {
-      return customError("Password is wrong", 400);
+      return customError("Password is not correct!", 400);
     } else {
       const token = createJwtToken({
         id: data.id,
@@ -38,6 +38,17 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
   const { email, password, username } = req.body;
+  const existingEmail = await prisma.User.findUnique({
+    where: {
+      email: email,
+    },
+  });
+  if (existingEmail) {
+    return customError(
+      "There is an account exist with this email! Please enter unique email",
+      409,
+    );
+  }
   const hashedPass = await hashPassword(password);
   const newUser = await prisma.User.create({
     data: {

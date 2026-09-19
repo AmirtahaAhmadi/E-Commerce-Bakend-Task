@@ -9,6 +9,7 @@ import {
 const authRouter = express.Router();
 
 authRouter.post("/login", loginValidation, checkValidation, login);
+
 authRouter.post("/register", registerValidation, checkValidation, register);
 
 export { authRouter };
