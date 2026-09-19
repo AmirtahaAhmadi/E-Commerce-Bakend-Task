@@ -19,6 +19,15 @@ const createCategoryValidation = [
     .withMessage("Category name is not valid!"),
 ];
 
+const getCategoryProducts = [
+  validator
+    .param("id")
+    .notEmpty()
+    .withMessage("Please enter category id!")
+    .isString()
+    .withMessage("Id is not valid!"),
+];
+
 const updateCategoryValidation = [
   validator
     .param("id")
@@ -46,6 +55,7 @@ const deleteCategoryByIdValidation = [
 
 export {
   getCategoryByIdValidation,
+  getCategoryProducts,
   createCategoryValidation,
   updateCategoryValidation,
   deleteCategoryByIdValidation,

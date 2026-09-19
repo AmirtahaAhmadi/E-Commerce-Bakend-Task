@@ -2,7 +2,7 @@ import { customError } from "../utils/errorHandler.util.js";
 import { prisma } from "../utils/prisma/prisma.util.js";
 
 const getAllCategories = async (req, res) => {
-  const categories = await prisma.Category.findMany({});
+  const categories = await prisma.category.findMany({});
   return res.status(200).json({
     success: true,
     data: categories,
@@ -12,7 +12,7 @@ const getAllCategories = async (req, res) => {
 
 const getCategoryDetails = async (req, res) => {
   const id = req.params.id;
-  const selectedCategory = await prisma.Category.findFirst({
+  const selectedCategory = await prisma.category.findFirst({
     where: {
       id: id,
     },
@@ -33,7 +33,7 @@ const getCategoryDetails = async (req, res) => {
 
 const createCategory = async (req, res) => {
   const name = req.body.name;
-  const existingCategory = await prisma.Category.findUnique({
+  const existingCategory = await prisma.category.findUnique({
     where: {
       name: name,
     },
@@ -44,7 +44,7 @@ const createCategory = async (req, res) => {
       409,
     );
   }
-  const category = await prisma.Category.create({
+  const category = await prisma.category.create({
     data: {
       name: name,
     },
@@ -59,7 +59,7 @@ const createCategory = async (req, res) => {
 const updateCategory = async (req, res) => {
   const id = req.params.id;
   const name = req.body.name;
-  const existingCategory = await prisma.Category.findUnique({
+  const existingCategory = await prisma.category.findUnique({
     where: {
       name: name,
     },
@@ -70,7 +70,7 @@ const updateCategory = async (req, res) => {
       409,
     );
   }
-  const selectedCategory = await prisma.Category.update({
+  const selectedCategory = await prisma.category.update({
     where: {
       id: id,
     },
@@ -91,7 +91,7 @@ const updateCategory = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
   const id = req.params.id;
-  const selectedCategory = await prisma.Category.delete({
+  const selectedCategory = await prisma.category.delete({
     where: {
       id: id,
     },

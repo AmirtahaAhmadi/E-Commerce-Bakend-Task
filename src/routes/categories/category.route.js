@@ -12,14 +12,18 @@ import {
   createCategoryValidation,
   deleteCategoryByIdValidation,
   getCategoryByIdValidation,
+  getCategoryProducts,
   updateCategoryValidation,
 } from "../../validators/categoryValidator.js";
+import { getProductsByCategoryId } from "../../controllers/productController.js";
 
 const categoryRouter = express.Router();
 
 categoryRouter.get("/", getAllCategories);
 
 categoryRouter.get("/:id", getCategoryByIdValidation, getCategoryDetails);
+
+categoryRouter.get("/:id/products", getCategoryProducts, getProductsByCategoryId);
 
 categoryRouter.post(
   "/",

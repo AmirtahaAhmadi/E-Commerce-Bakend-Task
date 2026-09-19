@@ -8,7 +8,7 @@ import { createJwtToken } from "../utils/jwtHelper.util.js";
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-  const data = await prisma.User.findFirst({
+  const data = await prisma.user.findFirst({
     where: {
       email: email,
     },
@@ -38,7 +38,7 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
   const { email, password, username } = req.body;
-  const existingEmail = await prisma.User.findUnique({
+  const existingEmail = await prisma.user.findUnique({
     where: {
       email: email,
     },
