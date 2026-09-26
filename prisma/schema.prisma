@@ -13,32 +13,54 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
+  id        String      @id @default(uuid())
+  email     String      @unique
   password  String
   username  String
-  createdAt DateTime @default(now())
-  role      String   @default("user")
+  createdAt DateTime    @default(now())
+  images    UserImage[]
+  favorites Favorite[]
+  role      String      @default("user")
+}
+
+model UserImage {
+  id     String @id @default(uuid())
+  url    String
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Favorite {
+  id         String   @id @default(uuid())
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  createdAt  DateTime @default(now())
+  lastUpdate DateTime @updatedAt
 }
 
 model Category {
-  id         String    @id @default(uuid())
-  name       String    @unique
-  products   Product[]
-  createdAt  DateTime  @default(now())
-  lastUpdate DateTime  @updatedAt
+  id          String    @id @default(uuid())
+  name        String    @unique
+  products    Product[]
+  description String?
+  createdAt   DateTime  @default(now())
+  lastUpdate  DateTime  @updatedAt
 }
 
 model Product {
-  id         String         @id @default(uuid())
-  title      String
-  price      Float
-  stock      Int
-  images     ProductImage[]
-  createdAt  DateTime       @default(now())
-  lastUpdate DateTime       @updatedAt
-  categoryId String
-  category   Category       @relation(fields: [categoryId], references: [id])
+  id          String         @id @default(uuid())
+  title       String
+  price       Float
+  stock       Int
+  description String
+  images      ProductImage[]
+  createdAt   DateTime       @default(now())
+  lastUpdate  DateTime       @updatedAt
+  categoryId  String
+  category    Category       @relation(fields: [categoryId], references: [id])
+  favorites   Favorite[]
 }
 
 model ProductImage {

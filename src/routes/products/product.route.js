@@ -6,10 +6,10 @@ import {
   deleteProduct,
   getAllProducts,
   getProductDetails,
-  postImagesToProduct,
+  postImageToProduct,
   updateProduct,
 } from "../../controllers/productController.js";
-import { uploader } from "../../utils/productImage.util.js";
+import { productUploader } from "../../utils/productImage.util.js";
 import {
   addImagesToProductValidation,
   createProductValidation,
@@ -50,11 +50,11 @@ productRouter.delete(
 
 productRouter.post(
   "/:id/images",
-  uploader.array("images", 5),
+  productUploader.array("images", 5),
   checkAthentication,
   checkAdminAuthorization,
   addImagesToProductValidation,
-  postImagesToProduct,
+  postImageToProduct,
 );
 
 export { productRouter };

@@ -5,7 +5,7 @@ const getCategoryByIdValidation = [
     .param("id")
     .notEmpty()
     .withMessage("Please enter category id!")
-    .isString()
+    .isUUID()
     .withMessage("Id is not valid!"),
 ];
 
@@ -17,6 +17,12 @@ const createCategoryValidation = [
     .isString()
     .isLength({ min: 3, max: 30 })
     .withMessage("Category name is not valid!"),
+  validator
+    .body("description")
+    .optional()
+    .isString()
+    .isLength({ min: 3, max: 50 })
+    .withMessage("Category description is not valid!"),
 ];
 
 const getCategoryProducts = [
@@ -24,7 +30,7 @@ const getCategoryProducts = [
     .param("id")
     .notEmpty()
     .withMessage("Please enter category id!")
-    .isString()
+    .isUUID()
     .withMessage("Id is not valid!"),
 ];
 
@@ -33,7 +39,7 @@ const updateCategoryValidation = [
     .param("id")
     .notEmpty()
     .withMessage("Please enter category id!")
-    .isString()
+    .isUUID()
     .withMessage("Id is not valid!"),
   validator
     .body("name")
@@ -42,6 +48,12 @@ const updateCategoryValidation = [
     .isString()
     .isLength({ min: 3, max: 30 })
     .withMessage("Category name is not valid!"),
+  validator
+    .body("description")
+    .optional()
+    .isString()
+    .isLength({ min: 3, max: 50 })
+    .withMessage("Category description is not valid!"),
 ];
 
 const deleteCategoryByIdValidation = [
@@ -49,7 +61,7 @@ const deleteCategoryByIdValidation = [
     .param("id")
     .notEmpty()
     .withMessage("Please enter category id!")
-    .isString()
+    .isUUID()
     .withMessage("Id is not valid!"),
 ];
 

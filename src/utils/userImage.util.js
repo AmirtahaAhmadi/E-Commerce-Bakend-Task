@@ -2,7 +2,7 @@ import multer from "multer";
 import path from "path";
 
 const attachmentsStorage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/products"),
+  destination: (req, file, cb) => cb(null, "uploads/users"),
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
     const uniqueName = Date.now();
@@ -10,5 +10,5 @@ const attachmentsStorage = multer.diskStorage({
   },
 });
 
-const productUploader = multer({ storage: attachmentsStorage });
-export { productUploader };
+const userUploader = multer({ storage: attachmentsStorage });
+export { userUploader };

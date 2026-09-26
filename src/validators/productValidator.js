@@ -5,7 +5,7 @@ const getProductByIdValidation = [
     .param("id")
     .notEmpty()
     .withMessage("Please enter product id!")
-    .isString()
+    .isUUID()
     .withMessage("Id is not valid!"),
 ];
 
@@ -21,16 +21,23 @@ const createProductValidation = [
     .body("price")
     .notEmpty()
     .withMessage("Please enter product Price!")
-    .toInt()
-    .isInt()
-    .withMessage("Price must be number!"),
+    .isFloat()
+    .withMessage("Price must be number!")
+    .toFloat(),
   validator
     .body("stock")
     .notEmpty()
     .withMessage("Please enter product stock!")
-    .toInt()
     .isInt()
-    .withMessage("Stock must be number!"),
+    .withMessage("Stock must be number!")
+    .toInt(),
+  validator
+    .body("description")
+    .notEmpty()
+    .withMessage("Please enter product description!")
+    .isString()
+    .isLength({ min: 3, max: 50 })
+    .withMessage("Product description is not valid!"),
   validator
     .body("categoryId")
     .notEmpty()
@@ -44,7 +51,7 @@ const updateProductValidation = [
     .param("id")
     .notEmpty()
     .withMessage("Please enter product id!")
-    .isString()
+    .isUUID()
     .withMessage("Id is not valid!"),
   validator
     .body("title")
@@ -57,16 +64,23 @@ const updateProductValidation = [
     .body("price")
     .notEmpty()
     .withMessage("Please enter product Price!")
-    .toInt()
-    .isInt()
-    .withMessage("Price must be number!"),
+    .isFloat()
+    .withMessage("Price must be number!")
+    .toFloat(),
   validator
     .body("stock")
     .notEmpty()
     .withMessage("Please enter product stock!")
-    .toInt()
     .isInt()
-    .withMessage("Stock must be number!"),
+    .withMessage("Stock must be number!")
+    .toInt(),
+  validator
+    .body("description")
+    .notEmpty()
+    .withMessage("Please enter product description!")
+    .isString()
+    .isLength({ min: 3, max: 50 })
+    .withMessage("Product description is not valid!"),
   validator
     .body("categoryId")
     .notEmpty()
@@ -80,7 +94,7 @@ const deleteProductByIdValidation = [
     .param("id")
     .notEmpty()
     .withMessage("Please enter product id!")
-    .isString()
+    .isUUID()
     .withMessage("Id is not valid!"),
 ];
 
@@ -89,7 +103,7 @@ const addImagesToProductValidation = [
     .param("id")
     .notEmpty()
     .withMessage("Please enter product id!")
-    .isString()
+    .isUUID()
     .withMessage("Id is not valid!"),
 ];
 

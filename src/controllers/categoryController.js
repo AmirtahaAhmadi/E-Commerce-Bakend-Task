@@ -12,7 +12,15 @@ const getAllCategories = async (req, res) => {
 
 const getCategoryDetails = async (req, res) => {
   const id = req.params.id;
-  const selectedCategory = await prisma.category.findFirst({
+  const selectedCategory = await prisma.category.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  if (!selectedCategory) {
+    return customError("There is no category with this id!", 404);
+  }
+  const selectedCategoryToShow = await prisma.category.findUnique({
     where: {
       id: id,
     },
@@ -20,19 +28,15 @@ const getCategoryDetails = async (req, res) => {
       products: true,
     },
   });
-  if (!selectedCategory) {
-    return customError("There is no category with this id!", 404);
-  } else {
-    return res.status(200).json({
-      success: true,
-      data: selectedCategory,
-      message: "Category details successfully recived!",
-    });
-  }
+  return res.status(200).json({
+    success: true,
+    data: selectedCategoryToShow,
+    message: "Category details successfully recived!",
+  });
 };
 
 const createCategory = async (req, res) => {
-  const name = req.body.name;
+  const { name, description } = req.body;
   const existingCategory = await prisma.category.findUnique({
     where: {
       name: name,
@@ -47,6 +51,7 @@ const createCategory = async (req, res) => {
   const category = await prisma.category.create({
     data: {
       name: name,
+      description: description || "",
     },
   });
   return res.status(201).json({
@@ -70,7 +75,15 @@ const updateCategory = async (req, res) => {
       409,
     );
   }
-  const selectedCategory = await prisma.category.update({
+  const selectedCategory = await prisma.category.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  if (!selectedCategory) {
+    return customError("There is no category with this id!", 404);
+  }
+  const updatedCategory = await prisma.category.update({
     where: {
       id: id,
     },
@@ -78,33 +91,33 @@ const updateCategory = async (req, res) => {
       name: name,
     },
   });
-  if (!selectedCategory) {
-    return customError("There is no category with this id!", 404);
-  } else {
-    return res.status(200).json({
-      success: true,
-      data: selectedCategory,
-      message: "Category successfully updated!",
-    });
-  }
+  return res.status(200).json({
+    success: true,
+    data: updatedCategory,
+    message: "Category successfully updated!",
+  });
 };
 
 const deleteCategory = async (req, res) => {
   const id = req.params.id;
-  const selectedCategory = await prisma.category.delete({
+  const selectedCategory = await prisma.category.findUnique({
     where: {
       id: id,
     },
   });
   if (!selectedCategory) {
     return customError("There is no category with this id!", 404);
-  } else {
-    return res.status(200).json({
-      success: true,
-      data: selectedCategory,
-      message: "Category successfully deleted!",
-    });
   }
+  const deletedCategory = await prisma.category.delete({
+    where: {
+      id: id,
+    },
+  });
+  return res.status(200).json({
+    success: true,
+    data: deletedCategory,
+    message: "Category successfully deleted!",
+  });
 };
 
 export {

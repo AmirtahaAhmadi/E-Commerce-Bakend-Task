@@ -50,7 +50,7 @@ const register = async (req, res) => {
     );
   }
   const hashedPass = await hashPassword(password);
-  const newUser = await prisma.User.create({
+  const newUser = await prisma.user.create({
     data: {
       email: email,
       password: hashedPass,
